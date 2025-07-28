@@ -6,12 +6,14 @@
 - additional files may not be used without written permission
 
 ## theory of stress process by Pearlin et al. (1981)
-
+Applying the stress process on the stressors of the Covid-19 pandemic, see this [figure](https://github.com/goeltl/swb_parents_covid19/blob/main/stress_process_model_covid19.jpg) (own figure created based on Pearlin et al 1981, Pearlin 1999).
 
 ## raw time series data of affects
 ### Affects over survey time 2020-2022
 Affects of parents with child(ren) and a partner in the household aged 25-59
-Scale from -4 to 4
+Scale from -4 to 4, over 32 survey waves
 Weighted with demographic weight (W*_WEIGHTD) als analytic weights
 
 <img width="961" height="641" alt="image" src="https://github.com/user-attachments/assets/4eaaee61-3ef6-4961-99d3-68eea9f46544" />
+
+raw data available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/affects_table.xlsx) 
