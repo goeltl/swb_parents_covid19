@@ -10,6 +10,10 @@
 ## Theory of stress process by Pearlin et al. (1981)
 The paper is applying the stress process theory of Pearlin et al. on the stressors of the Covid-19 pandemic as experienced by parents and the subsequent reduction of subjective well-being. For a visual representation see this [figure](https://github.com/goeltl/swb_parents_covid19/blob/main/stress_process_model_covid19.jpg) (own figure created based on Pearlin et al. 1981, Pearlin 1999).
 
+## Code file, written in STATA18
+
+Code file available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/code_STATA_paper-iFamZ_2025_Goeltl.txt)
+
 ## Raw time series data of affects
 ### Affects over survey time 2020-2022
 Affects of parents with child(ren) and a partner in the household aged 25-59, 
@@ -20,10 +24,6 @@ weighted with demographic weight (W*_WEIGHTD) als analytic weights
 
 <img width="961" height="641" alt="image" src="https://github.com/user-attachments/assets/4eaaee61-3ef6-4961-99d3-68eea9f46544" />
 
-
-## Code file, written in STATA18
-
-Code file available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/code_STATA_paper-iFamZ_2025_Goeltl.txt)
 
 ## References
 Berghammer, C. 2022. Childcare and housework during the first lockdown in Austria: Traditional division or new roles? Journal of Family Research, 34(1), 99–133. https://doi.org/10.20377/jfr-701 
