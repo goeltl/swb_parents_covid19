@@ -16,17 +16,16 @@ Affects of parents with child(ren) and a partner in the household aged 25-59,
 scale from -4 to 4, over 32 survey waves
 weighted with demographic weight (W*_WEIGHTD) als analytic weights
 
-- raw data available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/affects_table.xlsx) 
+- raw data available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/code_STATA_paper-iFamZ_2025_Goeltl.txt)
 
 <img width="961" height="641" alt="image" src="https://github.com/user-attachments/assets/4eaaee61-3ef6-4961-99d3-68eea9f46544" />
 
 
+## Code file, written in STATA18
 
-## code file, written in STATA18
+Code file available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/code_STATA_paper-iFamZ_2025_Goeltl.txt)
 
-#link will be added asap
-
-## references
+## References
 Berghammer, C. 2022. Childcare and housework during the first lockdown in Austria: Traditional division or new roles? Journal of Family Research, 34(1), 99–133. https://doi.org/10.20377/jfr-701 
 
 Blasco-Belled, A., C. Tejada-Gallardo, M. Fatsini-Prats, und C. Alsinet. 2022. Mental health among the general population and healthcare workers during the COVID-19 pandemic: A meta-analysis of well-being and psychological distress prevalence. Current Psychology. https://doi.org/10.1007/s12144-022-02913-6 
