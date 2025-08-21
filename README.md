@@ -20,7 +20,7 @@ Affects of parents with child(ren) and a partner in the household aged 25-59,
 scale from -4 to 4, over 32 survey waves
 weighted with demographic weight (W*_WEIGHTD) als analytic weights
 
-- raw data available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/code_STATA_paper-iFamZ_2025_Goeltl.txt)
+- data table available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/affects_table.xlsx)
 
 <img width="961" height="641" alt="image" src="https://github.com/user-attachments/assets/4eaaee61-3ef6-4961-99d3-68eea9f46544" />
 
