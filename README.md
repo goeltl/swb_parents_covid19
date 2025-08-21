@@ -1,22 +1,26 @@
-# swb_parents_covid19
+# Well-being in crisis. 
+## Parents’ subjective well-being during the Covid-19 pandemic in Austria
+
 - additional materials on the subjective well-being (SWB) of parents during the beginning of the Covid-19 pandemic (2020-2022) in Austria
 - analysis based on Austrian Corona Panel Project (ACPP) data: https://viecer.univie.ac.at/coronapanel/
 
 - *code may be used and edited when crediting author: Gwen Göltl*
 - *additional files may not be used without written permission*
 
-## theory of stress process by Pearlin et al. (1981)
-Applying the stress process on the stressors of the Covid-19 pandemic, see this [figure](https://github.com/goeltl/swb_parents_covid19/blob/main/stress_process_model_covid19.jpg) (own figure created based on Pearlin et al 1981, Pearlin 1999).
+## Theory of stress process by Pearlin et al. (1981)
+The paper is applying the stress process theory of Pearlin et al. on the stressors of the Covid-19 pandemic as experienced by parents and the subsequent reduction of subjective well-being. For a visual representation see this [figure](https://github.com/goeltl/swb_parents_covid19/blob/main/stress_process_model_covid19.jpg) (own figure created based on Pearlin et al. 1981, Pearlin 1999).
 
-## raw time series data of affects
+## Raw time series data of affects
 ### Affects over survey time 2020-2022
-Affects of parents with child(ren) and a partner in the household aged 25-59
-Scale from -4 to 4, over 32 survey waves
-Weighted with demographic weight (W*_WEIGHTD) als analytic weights
+Affects of parents with child(ren) and a partner in the household aged 25-59, 
+scale from -4 to 4, over 32 survey waves
+weighted with demographic weight (W*_WEIGHTD) als analytic weights
+
+- raw data available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/affects_table.xlsx) 
 
 <img width="961" height="641" alt="image" src="https://github.com/user-attachments/assets/4eaaee61-3ef6-4961-99d3-68eea9f46544" />
 
-raw data available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/affects_table.xlsx) 
+
 
 ## code file, written in STATA18
 
