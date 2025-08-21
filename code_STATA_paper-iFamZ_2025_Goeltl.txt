@@ -1,0 +1,1168 @@
+*Data: ACPP Datensatz "ACPP_Daten_v5_0.dta" (https://doi.org/10.11587/28KQNS)
+*Datensatz enthält 32 Befragungswellen von März 2020 bis Mai 2022
+*Stata version 18.0		
+set maxvar 10000
+ssc install oaxaca, replace
+
+
+* Gewichtung mit demographic weight (W*_WEIGHTD) als analytic weights, siehe 
+* https://viecer.univie.ac.at/coronapanel/austrian-corona-panel-data/method-report/
+forvalues i=1/32 {
+	gen weight`i' = W`i'_WEIGHTD 
+}
+
+//Fallzahlen:
+codebook RESPID //Unique values: 3,485 Personen gesamt über alle Wellen
+tab ENTRY_WAVE
+//
+
+* ------------------------------------------------------------------------ 	*
+**# 	SWB: negativer Affekt, positiver Affekt  				*
+* ------------------------------------------------------------------------ 	*
+/* Items negativer / positiver Affekt: 
+Wie oft waren Sie in der letzten Woche...? 
+a. … ruhig und gelassen
+b. … einsam
+c. … ärgerlich
+d. … so niedergeschlagen, dass Sie nichts aufheitern konnte
+e. … glücklich
+f. … sehr nervös
+g. … ängstlich
+h. … bedrückt und traurig
+i. … voller Energie
+nie [1], an manchen Tagen [2], mehrmals die Woche [3] beinahe jeden Tag [4], täglich [5], weiß nicht [88], keine Angabe [99]  
+*/
+
+*[W1]	
+gen	ruhig1				=	W1_Q25A1	
+gen	einsam1				=	W1_Q25A2	
+gen	aergerlich1			=	W1_Q25A3	
+gen	niedergeschlagen1		=	W1_Q25A4	
+gen	gluecklich1			=	W1_Q25A5	
+gen	nervoes1			=	W1_Q25A6	
+gen	aengstlich1			=	W1_Q25A7	
+gen	traurig1			=	W1_Q25A8	
+gen	energie1			=	W1_Q25A9	
+*[W2]				
+gen	ruhig2				=	W2_Q35A1	
+gen	einsam2				=	W2_Q35A2	
+gen	aergerlich2			=	W2_Q35A3	
+gen	niedergeschlagen2		=	W2_Q35A4	
+gen	gluecklich2			=	W2_Q35A5	
+gen	nervoes2			=	W2_Q35A6	
+gen	aengstlich2			=	W2_Q35A7	
+gen	traurig2			=	W2_Q35A8	
+gen	energie2			=	W2_Q35A9	
+*[W3]				
+gen	ruhig3				=	W3_Q28A1	
+gen	einsam3				=	W3_Q28A2	
+gen	aergerlich3			=	W3_Q28A3	
+gen	niedergeschlagen3		=	W3_Q28A4	
+gen	gluecklich3			=	W3_Q28A5	
+gen	nervoes3			=	W3_Q28A6	
+gen	aengstlich3			=	W3_Q28A7	
+gen	traurig3			=	W3_Q28A8	
+gen	energie3			=	W3_Q28A9	
+*[W4]				
+gen	ruhig4				=	W4_Q39A1	
+gen	einsam4				=	W4_Q39A2	
+gen	aergerlich4			=	W4_Q39A3	
+gen	niedergeschlagen4		=	W4_Q39A4	
+gen	gluecklich4			=	W4_Q39A5	
+gen	nervoes4			=	W4_Q39A6	
+gen	aengstlich4			=	W4_Q39A7	
+gen	traurig4			=	W4_Q39A8	
+gen	energie4			=	W4_Q39A9	
+*[W5]				
+gen	ruhig5				=	W5_Q33A1	
+gen	einsam5				=	W5_Q33A2	
+gen	aergerlich5			=	W5_Q33A3	
+gen	niedergeschlagen5		=	W5_Q33A4	
+gen	gluecklich5			=	W5_Q33A5	
+gen	nervoes5			=	W5_Q33A6	
+gen	aengstlich5			=	W5_Q33A7	
+gen	traurig5			=	W5_Q33A8	
+gen	energie5			=	W5_Q33A9	
+*[W6]				
+gen	ruhig6				=	W6_Q33A1	
+gen	einsam6				=	W6_Q33A2	
+gen	aergerlich6			=	W6_Q33A3	
+gen	niedergeschlagen6		=	W6_Q33A4	
+gen	gluecklich6			=	W6_Q33A5	
+gen	nervoes6			=	W6_Q33A6	
+gen	aengstlich6			=	W6_Q33A7	
+gen	traurig6			=	W6_Q33A8	
+gen	energie6			=	W6_Q33A9	
+*[W7]				
+gen	ruhig7				=	W7_Q33A1	
+gen	einsam7				=	W7_Q33A2	
+gen	aergerlich7			=	W7_Q33A3	
+gen	niedergeschlagen7		=	W7_Q33A4	
+gen	gluecklich7			=	W7_Q33A5	
+gen	nervoes7			=	W7_Q33A7	
+gen	aengstlich7			=	W7_Q33A7	
+gen	traurig7			=	W7_Q33A8	
+gen	energie7			=	W7_Q33A9	
+*[W8]				
+gen	ruhig8				=	W8_Q34A1	
+gen	einsam8				=	W8_Q34A2	
+gen	aergerlich8			=	W8_Q34A3	
+gen	niedergeschlagen8		=	W8_Q34A4	
+gen	gluecklich8			=	W8_Q34A5	
+gen	nervoes8			=	W8_Q34A6	
+gen	aengstlich8			=	W8_Q34A7	
+gen	traurig8			=	W8_Q34A8	
+gen	energie8			=	W8_Q34A9	
+*[W9]				
+gen	ruhig9				=	W9_Q32A1	
+gen	einsam9				=	W9_Q32A2	
+gen	aergerlich9			=	W9_Q32A3	
+gen	niedergeschlagen9		=	W9_Q32A4	
+gen	gluecklich9			=	W9_Q32A5	
+gen	nervoes9			=	W9_Q32A6	
+gen	aengstlich9			=	W9_Q32A7	
+gen	traurig9			=	W9_Q32A8	
+gen	energie9			=	W9_Q32A9	
+*[W10]				
+gen	ruhig10				=	W10_Q34A1
+gen	einsam10			=	W10_Q34A2
+gen	aergerlich10			=	W10_Q34A3
+gen	niedergeschlagen10		=	W10_Q34A4
+gen	gluecklich10			=	W10_Q34A5
+gen	nervoes10			=	W10_Q34A6
+gen	aengstlich10			=	W10_Q34A7
+gen	traurig10			=	W10_Q34A8
+gen	energie10			=	W10_Q34A9
+*[W11]				
+gen	ruhig11				=	W11_Q44A1
+gen	einsam11			=	W11_Q44A2
+gen	aergerlich11			=	W11_Q44A3
+gen	niedergeschlagen11		=	W11_Q44A4
+gen	gluecklich11			=	W11_Q44A5
+gen	nervoes11			=	W11_Q44A6
+gen	aengstlich11			=	W11_Q44A7
+gen	traurig11			=	W11_Q44A8
+gen	energie11			=	W11_Q44A9
+*[W12]			
+gen	ruhig12				=	W12_Q37A1
+gen	einsam12			=	W12_Q37A2
+gen	aergerlich12			=	W12_Q37A3
+gen	niedergeschlagen12		=	W12_Q37A4
+gen	gluecklich12			=	W12_Q37A5
+gen	nervoes12			=	W12_Q37A6
+gen	aengstlich12			=	W12_Q37A7
+gen	traurig12			=	W12_Q37A8
+gen	energie12			=	W12_Q37A9
+*[W13]				
+gen	ruhig13				=	W13_Q33A1
+gen	einsam13			=	W13_Q33A2
+gen	aergerlich13			=	W13_Q33A3
+gen	niedergeschlagen13		=	W13_Q33A4
+gen	gluecklich13			=	W13_Q33A5
+gen	nervoes13			=	W13_Q33A6
+gen	aengstlich13			=	W13_Q33A7
+gen	traurig13			=	W13_Q33A8
+gen	energie13			=	W13_Q33A9
+*[W14]				
+gen	ruhig14				=	W14_Q36A1
+gen	einsam14			=	W14_Q36A2
+gen	aergerlich14			=	W14_Q36A3
+gen	niedergeschlagen14		=	W14_Q36A4
+gen	gluecklich14			=	W14_Q36A5
+gen	nervoes14			=	W14_Q36A6
+gen	aengstlich14			=	W14_Q36A7
+gen	traurig14			=	W14_Q36A8
+gen	energie14			=	W14_Q36A9
+*[W15]				
+gen	ruhig15				=	W15_Q33A1
+gen	einsam15			=	W15_Q33A2
+gen	aergerlich15			=	W15_Q33A3
+gen	niedergeschlagen15		=	W15_Q33A4
+gen	gluecklich15			=	W15_Q33A5
+gen	nervoes15	 		=	W15_Q33A6
+gen	aengstlich15			=	W15_Q33A7
+gen	traurig15			=	W15_Q33A8
+gen	energie15			=	W15_Q33A9
+*[W16]				
+gen	ruhig16				=	W16_Q44A1
+gen	einsam16			=	W16_Q44A2
+gen	aergerlich16			=	W16_Q44A3
+gen	niedergeschlagen16		=	W16_Q44A4
+gen	gluecklich16			=	W16_Q44A5
+gen	nervoes16			=	W16_Q44A6
+gen	aengstlich16			=	W16_Q44A7
+gen	traurig16			=	W16_Q44A8
+gen	energie16			=	W16_Q44A9
+*[W17]				
+gen	ruhig17				=	W17_Q33A1
+gen	einsam17 			=	W17_Q33A2
+gen	aergerlich17			=	W17_Q33A3
+gen	niedergeschlagen17		=	W17_Q33A4
+gen	gluecklich17			=	W17_Q33A5
+gen	nervoes17			=	W17_Q33A6
+gen	aengstlich17			=	W17_Q33A7
+gen	traurig17			=	W17_Q33A8
+gen	energie17			=	W17_Q33A9
+*[W18]				
+gen	ruhig18				=	W18_Q41A1
+gen	einsam18			=	W18_Q41A2
+gen	aergerlich18			=	W18_Q41A3
+gen	niedergeschlagen18		=	W18_Q41A4
+gen	gluecklich18			=	W18_Q41A5
+gen	nervoes18			=	W18_Q41A6
+gen	aengstlich18			=	W18_Q41A7
+gen	traurig18			=	W18_Q41A8
+gen	energie18			=	W18_Q41A9
+*[W19]				
+gen	ruhig19				=	W19_Q35A1 
+gen	einsam19			=	W19_Q35A2 
+gen	aergerlich19			=	W19_Q35A3 
+gen	niedergeschlagen19		=	W19_Q35A4 
+gen	gluecklich19			=	W19_Q35A5 
+gen	nervoes19			=	W19_Q35A6 
+gen	aengstlich19			=	W19_Q35A7
+gen	traurig19			=	W19_Q35A8 
+gen	energie19			=	W19_Q35A9
+*[W20]				
+gen	ruhig20				=	W20_Q39A1
+gen	einsam20			=	W20_Q39A2
+gen	aergerlich20			=	W20_Q39A3
+gen	niedergeschlagen20		=	W20_Q39A4
+gen	gluecklich20			=	W20_Q39A5
+gen	nervoes20			=	W20_Q39A6
+gen	aengstlich20			=	W20_Q39A7
+gen	traurig20			=	W20_Q39A8
+gen	energie20			=	W20_Q39A9
+*[W21]				
+gen	ruhig21				=	W21_Q52A1
+gen	einsam21			=	W21_Q52A2
+gen	aergerlich21			=	W21_Q52A3
+gen	niedergeschlagen21		=	W21_Q52A4
+gen	gluecklich21			=	W21_Q52A5
+gen	nervoes21			=	W21_Q52A6
+gen	aengstlich21			=	W21_Q52A7
+gen	traurig21			=	W21_Q52A8
+gen	energie21			=	W21_Q52A9
+*[W22]				
+gen	ruhig22				=	W22_Q43A1
+gen	einsam22			=	W22_Q43A2
+gen	aergerlich22			=	W22_Q43A3
+gen	niedergeschlagen22		=	W22_Q43A4
+gen	gluecklich22			=	W22_Q43A5
+gen	nervoes22			=	W22_Q43A6
+gen	aengstlich22			=	W22_Q43A7
+gen	traurig22			=	W22_Q43A8
+gen	energie22			=	W22_Q43A9
+*[W23]				
+gen	ruhig23				=	W23_Q43A1
+gen	einsam23			=	W23_Q43A2
+gen	aergerlich23			=	W23_Q43A3
+gen	niedergeschlagen23		=	W23_Q43A4
+gen	gluecklich23			=	W23_Q43A5
+gen	nervoes23			=	W23_Q43A6
+gen	aengstlich23			=	W23_Q43A7
+gen	traurig23			=	W23_Q43A8
+gen	energie23			=	W23_Q43A9
+*[W24]				
+gen	ruhig24				=	W24_Q43A1
+gen	einsam24			=	W24_Q43A2
+gen	aergerlich24			=	W24_Q43A3
+gen	niedergeschlagen24		=	W24_Q43A4
+gen	gluecklich24			=	W24_Q43A5
+gen	nervoes24			=	W24_Q43A6
+gen	aengstlich24			=	W24_Q43A7
+gen	traurig24			=	W24_Q43A8
+gen	energie24			=	W24_Q43A9
+*[W25]				
+gen	ruhig25				=	W25_Q38A1
+gen	einsam25			=	W25_Q38A2
+gen	aergerlich25			=	W25_Q38A3
+gen	niedergeschlagen25		=	W25_Q38A4
+gen	gluecklich25			=	W25_Q38A5
+gen	nervoes25			=	W25_Q38A6
+gen	aengstlich25			=	W25_Q38A7
+gen	traurig25			=	W25_Q38A8
+gen	energie25			=	W25_Q38A9
+*[W26]				
+gen	ruhig26				=	W26_Q53A1
+gen	einsam26			=	W26_Q53A2
+gen	aergerlich26			=	W26_Q53A3
+gen	niedergeschlagen26		=	W26_Q53A4
+gen	gluecklich26			=	W26_Q53A5
+gen	nervoes26			=	W26_Q53A6
+gen	aengstlich26			=	W26_Q53A7
+gen	traurig26			=	W26_Q53A8
+gen	energie26			=	W26_Q53A9
+*[W27]				
+gen	ruhig27				=	W27_Q40A1
+gen	einsam27			=	W27_Q40A2
+gen	aergerlich27		=		W27_Q40A3
+gen	niedergeschlagen27	=	W27_Q40A4
+gen	gluecklich27		=	W27_Q40A5
+gen	nervoes27			=	W27_Q40A6
+gen	aengstlich27		=	W27_Q40A7
+gen	traurig27			=	W27_Q40A8
+gen	energie27			=	W27_Q40A9
+*[W28]				
+gen	ruhig28				=	W28_Q45A1
+gen	einsam28			=	W28_Q45A2
+gen	aergerlich28			=	W28_Q45A3
+gen	niedergeschlagen28		=	W28_Q45A4
+gen	gluecklich28			=	W28_Q45A5
+gen	nervoes28			=	W28_Q45A6
+gen	aengstlich28			=	W28_Q45A7
+gen	traurig28			=	W28_Q45A8
+gen	energie28			=	W28_Q45A9
+*[W29]				
+gen	ruhig29				=	W29_Q39A1
+gen	einsam29			=	W29_Q39A2
+gen	aergerlich29			=	W29_Q39A3
+gen	niedergeschlagen29		=	W29_Q39A4
+gen	gluecklich29			=	W29_Q39A5
+gen	nervoes29			=	W29_Q39A6
+gen	aengstlich29			=	W29_Q39A7
+gen	traurig29			=	W29_Q39A8
+gen	energie29			=	W29_Q39A9
+*[W30]				
+gen	ruhig30				=	W30_Q38A1
+gen	einsam30			=	W30_Q38A2
+gen	aergerlich30			=	W30_Q38A3
+gen	niedergeschlagen30		=	W30_Q38A4
+gen	gluecklich30			=	W30_Q38A5
+gen	nervoes30			=	W30_Q38A6
+gen	aengstlich30			=	W30_Q38A7
+gen	traurig30			=	W30_Q38A8
+gen	energie30			=	W30_Q38A9
+*[W31]				
+gen	ruhig31				=	W31_Q41A1
+gen	einsam31			=	W31_Q41A2
+gen	aergerlich31			=	W31_Q41A3
+gen	niedergeschlagen31		=	W31_Q41A4
+gen	gluecklich31			=	W31_Q41A5
+gen	nervoes31			=	W31_Q41A6
+gen	aengstlich31			=	W31_Q41A7
+gen	traurig31			=	W31_Q41A8
+gen	energie31			=	W31_Q41A9
+*[W32]				
+gen	ruhig32				=	W32_Q45A1
+gen	einsam32			=	W32_Q45A2
+gen	aergerlich32			=	W32_Q45A3
+gen	niedergeschlagen32		=	W32_Q45A4
+gen	gluecklich32			=	W32_Q45A5
+gen	nervoes32			=	W32_Q45A6
+gen	aengstlich32			=	W32_Q45A7
+gen	traurig32			=	W32_Q45A8
+gen	energie32			=	W32_Q45A9
+
+*Recodierung der fehlenden Werte
+forvalues i=1/32 {
+	recode ruhig`i' einsam`i' aergerlich`i' niedergeschlagen`i' gluecklich`i' nervoes`i' aengstlich`i' traurig`i' energie`i' (88 99=.a)
+}
+
+*** SWB Skala 
+* Affekte: negativ (psy_neg) und positiv (psy_pos) 2020-2022
+forvalues i=1/32 {	
+	//Anzahl gültige Antworten (Optionen 1 bis 5) für positive Items für jede Person
+	egen count`i'_pos = anycount(ruhig`i' gluecklich`i' energie`i'), v(1/5) 
+	//Summe an Antwortwerten in positiven Items für jede Person
+	egen sum`i'_pos = rowtotal(ruhig`i' gluecklich`i' energie`i') 
+	//Positiver Affekt: Mittelwertindex wenn zumindest 2 Items beantwortet wurden
+	gen psy_pos`i' = sum`i'_pos/count`i'_pos if count`i'_pos>=2
+	
+	//Anzahl gültige Antworten (Optionen 1 bis 5) für negative Items für jede Person
+	egen count`i'_neg = anycount(einsam`i' aergerlich`i' niedergeschlagen`i' nervoes`i' aengstlich`i' traurig`i'), v(1/5) 
+	//Summe an Antwortwerten in negativen Items für jede Person
+	egen sum`i'_neg = rowtotal(einsam`i' aergerlich`i' niedergeschlagen`i' nervoes`i' aengstlich`i' traurig`i')
+	//Negativer Affekt: Mittelwertindex wenn zumindest 2 Items beantwortet wurden
+	gen psy_neg`i' = sum`i'_neg/count`i'_neg if count`i'_neg>=4
+}
+* Gesamt-Affekt: affect = positiv (psy_pos) - negativ (psy_neg)   
+* Spannweite: [-4; 4]
+* Zeitspanne: 2020-2022
+forvalues i=1/32 {	
+	*Rekodierung von Spannweite 1 - 5 auf 0 - 4
+	gen psy_neg_`i' = psy_neg`i'-1
+	gen psy_pos_`i' = psy_pos`i'-1
+}
+
+forvalues i=1/32 {	
+	gen affect`i' = psy_pos`i' - psy_neg`i'
+	*tabstat affect`i'
+}
+
+
+* ----------------------------------------------- *
+**#  Variablen	 				  *
+* ----------------------------------------------- *
+* Geschlecht gndr 
+gen gndr=SD_GENDER
+replace gndr=. if SD_GENDER==99 //Kategorie Keine Angabe/Divers
+label variable gndr "Geschlecht"
+label define gndr_lab 1 "Männer" 2 "Frauen"
+label values gndr gndr_lab
+drop if gndr==. //11 observations dropped
+
+* Alter alter
+* Alter im Befragungsjahr 2020
+* SD_BIRTHYEAR 1945 = 1945 oder älter; 2003 = 2003 oder jünger
+gen alter = 2020-SD_BIRTHYEAR
+label variable alter "Alter in Jahren"
+label values alter
+
+//Fallzahlen:
+*keep if alter>=25 & alter<=59
+*codebook RESPID //Unique values: 2012 Personen gesamt über alle Wellen
+*tab ENTRY_WAVE
+*tab gndr //1028 Männer, 984 Frauen
+//
+
+* Kind(er) unter 15 Jahren im Haushalt
+//Variablen zur Kinderanzahl wurden nur Personen in Mehrpersonenhaushalten gestellt (SD_HH_SIZE!=1)
+//->  viele fehlende Werte in Ausgangsvariablen, werden als "kein Kind" kodiert
+*tab SD_HH_SIZE, m //size = 1: 375 Personen
+gen kindu15 = 0 if SD_HH_SIZE==1
+//Wenn (zumindest) eine Frage nach Kinderanzahl mit 0 beantwortet wurde -> kindu14=0
+replace kindu15=0 if SD_HH_CHILD2==0 | SD_HH_CHILD5==0 | SD_HH_CHILD14==0 | SD_HH_CHILD14==0 
+//Wenn zumindest 1 Kind in einer der Altersgruppen unter 15J im Hh -> kindu14=1
+replace kindu15=1 if SD_HH_CHILD2==1 | SD_HH_CHILD5==1 | SD_HH_CHILD14==1 | SD_HH_CHILD14==2 
+label variable kindu15 "Kind(er) unter 15 Jahren im Haushalt"
+label define kindu15_lab 0 "kein Kind < 15J" 1 "Kind(er) < 15J"
+label values kindu15 kindu15_lab
+
+/*tab kindu15, m
+ Kind(er) unter |
+   15 Jahren im |
+       Haushalt |      Freq.     Percent        Cum.
+----------------+-----------------------------------
+kein Kind < 15J |      2,451       70.59       70.59
+ Kind(er) < 15J |        847       24.40       94.99
+              . |        174        5.01      100.00
+----------------+-----------------------------------
+          Total |      3,472      100.00
+		  
+Für Personen 25-59J: [schließt Geschwister von Kindern im gleichen Haushalt aus]
+ Kind(er) unter |
+   15 Jahren im |
+       Haushalt |      Freq.     Percent        Cum.
+----------------+-----------------------------------
+kein Kind < 15J |      1,287       63.97       63.97
+ Kind(er) < 15J |        618       30.72       94.68
+              . |        107        5.32      100.00
+----------------+-----------------------------------
+          Total |      2,012      100.00
+
+*/
+
+//Fallzahlen:
+*keep if kindu15==1 & alter>=25 & alter<=59
+*codebook RESPID //Unique values: 618 Personen gesamt über alle Wellen
+*tab ENTRY_WAVE
+*tab gndr //298 Männer, 320 Frauen
+//
+
+* Partner*in im Haushalt
+//Information zu Partner*in im Haushalt erst ab Befragungswelle 4 enthalten 
+//Zählen, in wie vielen Wellen Frage zu Partnerschaft beantwortet wurde
+egen check_teilnahme=anycount(W4_Q10A1 W5_Q10A1 W6_Q10A1 W7_Q7A1 W8_Q7A1 W9_Q10A1 W10_Q10A1 W11_Q10A1 W12_Q7A1 W13_Q7A1 W14_Q7A1 W15_Q7A1 W16_Q7A1 W17_Q7A1 W18_Q7A1 W19_Q7A1 W20_Q7A1 W21_Q7A1 W22_Q7A1 W23_Q7A1 W24_Q7A1 W25_Q7A1 W26_Q7A1 W27_Q7A1 W28_Q7A1 W29_Q7A1 W30_Q7A1 W31_Q7A1 W32_Q7A1), v(0 1) 
+//Zählen, wie oft keine Partner*in angegeben wurde
+egen check_partner=anycount(W4_Q10A1 W5_Q10A1 W6_Q10A1 W7_Q7A1 W8_Q7A1 W9_Q10A1 W10_Q10A1 W11_Q10A1 W12_Q7A1 W13_Q7A1 W14_Q7A1 W15_Q7A1 W16_Q7A1 W17_Q7A1 W18_Q7A1 W19_Q7A1 W20_Q7A1 W21_Q7A1 W22_Q7A1 W23_Q7A1 W24_Q7A1 W25_Q7A1 W26_Q7A1 W27_Q7A1 W28_Q7A1 W29_Q7A1 W30_Q7A1 W31_Q7A1 W32_Q7A1), v(0) 
+//Partner*in in zumindest der Hälfte der Befragungen -> partner=1 (keine Infos für Wellen 1-3) 
+gen partner = 1 if check_partner<(check_teilnahme/2) 
+label variable partner "Partner*in im Haushalt"
+label define partner_lab 0 "Kein*e Partner*in" 1 "Partner*in im Haushalt"
+label values partner partner_lab
+
+/*tab partner, m 
+Partner*in im Haushalt |      Freq.     Percent        Cum.
+-----------------------+-----------------------------------
+Partner*in im Haushalt |      1,713       49.34       49.34
+                     . |      1,759       50.66      100.00
+Für Personen 25-59J mit Kind im Haushalt:					
+Partner*in im Haushalt |        481       77.83       77.83
+                     . |        137       22.17      100.00
+*/
+
+//Fallzahlen ANALYSESTICHPROBE
+keep if partner==1 & kindu15==1 & alter>=25 & alter<=59
+codebook RESPID //Unique values: 481 Personen gesamt über alle Wellen
+tab ENTRY_WAVE
+tab gndr //M: 243 F: 238
+//
+
+* Bildung: bildung
+/* - Niedrige Bildung = Volksschule oder weniger und Hauptschule oder AHS Unterstufe
+- Mittlere Bildung = Polytechnikum, BMS (Fachschule, z.B. HASCH), Lehre, Berufsschule, AHS mit Matura and BHS mit Matura (z.B. HTL, HAK, HBLA etc.)
+- Hohe Bildung = Hochschulverwandte Lehranstalt oder Kolleg, Bachelor, Magister / Master / Diplom-ingenieur / Fachhochschule oder Doktor / PhD  */
+recode SD_EDU (1/2=1) (3/6=2) (7/10=3) (99=.), gen(bildung)
+label variable bildung "Bildunglevel"
+label define bildung_lab 1 "Pflichtschule" 2 "Lehre oder Oberstufe" 3 "Hochschulabschluss" 
+label values bildung bildung_lab
+
+* Bildung binär: Höhere Bildung Ja/Nein
+/*
+*V1: missing getrennt
+recode SD_EDU (1/6=0) (7/10=1) (99=.), gen(hoeherebildung)
+label variable hoeherebildung "Höhere Bildung"
+label define bildung_lab2 0 "Keine höhere Bildung" 1 "Höhere Bildung" 
+label values hoeherebildung bildung_lab2	
+*/
+*V2: missing in keine höhere Bildung: [Missing ist nur 1 Person in Analysestichprobe]
+recode SD_EDU (1/6=0) (7/10=1) (99=0), gen(hoeherebildung)
+label variable hoeherebildung "Höhere Bildung"
+label define bildung_lab2 0 "Keine höhere Bildung" 1 "Höhere Bildung" 
+label values hoeherebildung bildung_lab2	
+
+/*tab SD_EDU hoeherebildung, m
+[nach Wahl der Analysestichprobe]
+            HOECHSTER |
+SCHUL-/BILDUNGSABSCHL |    Höhere Bildung
+                  USS | Keine höh  Höhere Bi |     Total
+----------------------+----------------------+----------
+1. Volksschule oder w |         3          0 |         3 
+2. Hauptschule oder A |        22          0 |        22 
+3. Polytechnikum, BMS |        38          0 |        38 
+4. Lehre, Berufsschul |       235          0 |       235 
+    5. AHS mit Matura |        34          0 |        34 
+6. BHS mit Matura (z. |        69          0 |        69 
+7. Hochschulverwandte |         0         14 |        14 
+          8. Bachelor |         0         21 |        21 
+9. Magister / Master  |         0         37 |        37 
+     10. Doktor / PhD |         0          7 |         7 
+     99. keine Angabe |         1          0 |         1 
+----------------------+----------------------+----------
+                Total |       402         79 |       481 
+*/
+
+*  Migration migra 
+/*SD_BORN_AUSTRIA „Ist Ihr Geburtsland Österreich?" 
+  1 = Geburtsland Österreich 2 = Geburtsland nicht Österreich
+  SD_MIGR_BACKGR Wurde einer oder beide Ihrer Elternteile nicht in Österreich geboren?"
+  1 = ein Elternteil nicht in Ö geboren 2 = beide Eltern nicht in Ö geboren 3 = kein */
+gen migra=.
+//Migration = 1 wenn entweder Befragte*r oder beide Elternteile nicht in Ö geboren
+replace migra=1 if SD_BORN_AUSTRIA==2 | SD_MIGR_BACKGR==2 
+//Migration = 0 wenn sowohl Befragte*r als auch zumindest ein Elternteil in Ö geboren
+replace migra=0 if SD_BORN_AUSTRIA==1 & (SD_MIGR_BACKGR==3  | SD_MIGR_BACKGR==1)
+label variable migra "Migrationshintergrund"
+label define migra_lab 0 "kein Migrationshintergrund" 1 "Migrationshintergrund" 
+label values migra migra_lab
+*V2: Wenn nur Frage zu eigenem Geburtsland beantwortet wurde, darin keine Migration angegeben wurde 
+*und zweite Antwort zu Eltern fehlt: Annahme = keine Migration.
+*[Betrifft nur 2 Personen in Analysestichprobe]; 1 Person ohne jegliche Angaben verbleibt als fehlend
+/*tab SD_BORN_AUSTRIA SD_MIGR_BACKGR, m
+     GEBURTSLAND |    ELTERN NICHT IN OESTERREICH GEBOREN?
+     OESTERREICH | 1. Ja, ei  2. Ja, be    3. Nein  99. keine |     Total
+-----------------+--------------------------------------------+----------
+           1. Ja |        25         70        325          2 |       422 
+         2. Nein |         4         42         12          0 |        58 
+99. keine Angabe |         0          0          0          1 |         1 
+-----------------+--------------------------------------------+----------
+           Total |        29        112        337          3 |       481 
+*/
+*Kein Migrationshintergrund ZUSÄTZLICH wenn Geburtsland = Ö und keine Angabe zu Eltern
+replace migra=0 if SD_BORN_AUSTRIA==1 & SD_MIGR_BACKGR==99
+/*tab migra, m
+     Migrationshintergrund |      Freq.     Percent        Cum.
+---------------------------+-----------------------------------
+kein Migrationshintergrund |        352       73.18       73.18
+     Migrationshintergrund |        128       26.61       99.79
+                         . |          1        0.21      100.00
+---------------------------+-----------------------------------
+                     Total |        481      100.00
+*/
+
+*  Haushaltseinkommen zum Befragungszeitpunkt (1. Lockdown 2020)
+gen hheink1 = W1_Q45 
+gen hheink2 = W2_Q61 
+gen hheink3 = W3_Q53 
+gen hheink4 = W4_Q70
+gen hheink5 = W5_Q77
+gen hheink6 = W6_Q70 
+
+*1 weniger als 1.100 Euro
+*2 1.100 bis unter 1.500 Euro
+*3 1.500 bis unter 1.800 Euro
+*4 1.800 bis unter 2.200 Euro
+*5 2.200 bis unter 2.700 Euro
+*6 2.700 bis unter 3.100 Euro
+*7 3.100 bis unter 3.700 Euro
+*8 3.700 bis unter 4.300 Euro
+*9 4.300 bis unter 5.500 Euro
+*10 5.500 Euro und mehr
+*99 keine Angabe [99]
+
+*Median des Haushaltseinkommens 2020 1. Lockdown
+tab1 hheink1 hheink2 hheink3 hheink4 hheink5 hheink6
+//50% cumulative in category 7 = median (over wave 1 to 6) */
+
+*V1: Drei Dummyvariablen: 
+*Unter oder am Medianeinkommen (low), über Medianeinkommen (high), keine Angabe (ka)
+label define hheink_low_lab 0 "Über Median Einkommen oder k.A." 1 "Medianeinkommen oder niedriger" 
+label define hheink_high_lab 0 "Medianeinkommen oder niedriger oder k.A." 1 "Über Median Einkommen"
+label define hheink_ka_lab 0 "Angabe zu Einkommen" 1 "Keine Angabe"
+forvalues i=1/6 {
+	recode hheink`i' (1/7=1) (7/10=0) (99=0), gen(hheink_low`i') 
+	label variable hheink_low`i' "Haushaltseinkommen bis Median (in Euro; netto)"
+	label values hheink_low`i' hheink_low_lab
+	
+	recode hheink`i' (1/7=0) (7/10=1) (99=0), gen(hheink_high`i') 
+	label variable hheink_high`i' "Haushaltseinkommen über Median (in Euro; netto)"
+	label values hheink_high`i' hheink_high_lab	
+	
+	recode hheink`i' (1/7=0) (7/10=0) (99=1), gen(hheink_ka`i') 
+	label variable hheink_ka`i' "Haushaltseinkommen: keine Angabe"
+	label values hheink_ka`i' hheink_ka_lab
+} 
+*tab hheink1 hheink_low1 
+*tab hheink1 hheink_high1 
+*tab hheink1 hheink_ka1 
+
+*V2: Binär codiert in "Über Median" oder andere: Keine Angabe, Medianeinkommen, niedriger oder anderes sammeln.
+label define  hheink_high_low_lab 0 "Medianeinkommen oder niedriger oder keine Angabe" 1 "Über Median Einkommen"
+forvalues i=1/6 {
+	capture drop hheink_high_low`i'
+	*Haushaltseinkommen bis inkl. Mediankategorie 7 = 0, über Median (8-10) = 1
+	recode hheink`i' (1/7=0) (7/10=1) (99=0) (.=0), gen(hheink_high_low`i')
+	label variable hheink_high_low`i' "Haushaltseinkommen (in Euro; netto)"
+	label values hheink_high_low`i' hheink_high_low_lab
+	*tab1 hheink_high_low`i'
+}
+tab hheink1 hheink_high_low1 
+/* wave 1:
+    Haushaltseinkommen (in Euro; netto) |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+Medianeinkommen oder niedriger oder kei |        436       90.64       90.64
+                  Über Median Einkommen |         45        9.36      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        481      100.00
+*/
+
+
+* Gefahren / Chancen persönlich (2020)
+/* Wie groß schätzen Sie die gesundheitliche Gefahr ein, welche von dem Coronavirus für Sie
+persönlich ausgeht?
+Wie groß schätzen Sie die wirtschaftliche Gefahr ein, welche von dem Coronavirus für Sie
+persönlich ausgeht? */
+gen gef_gesund1 = W1_Q9A1
+gen gef_gesund2 = W2_Q11A1
+gen gef_gesund3 = W3_Q11A1
+gen gef_gesund4 = W4_Q12A1
+gen gef_gesund5 = W5_Q12A1
+gen gef_gesund6 = W6_Q12A1
+// Wirtschaftliche Gefahr persönlich:
+gen gef_wirtsch1 = W1_Q10A1 
+gen gef_wirtsch2 = W2_Q12A1 
+gen gef_wirtsch3 = W3_Q12A1 
+gen gef_wirtsch4 = W4_Q13A1 
+gen gef_wirtsch5 = W5_Q13A1 
+gen gef_wirtsch6 = W6_Q13A1 
+
+//Recodierung auf hohe Werte = hohe Gefahr
+lab def gef_lab 1 "sehr klein" 2 "klein" 3 "mittelmässig" 4 "groß" 5 "sehr groß"
+forvalues i=1/6 {
+	recode gef_gesund`i' (1=5) (2=4) (4=2) (5=1) (99=.a) 
+	lab var gef_gesund`i' "Gesundheitliche Gefahr: Fuer mich persoenlich"
+	lab val gef_gesund`i' gef_lab
+	
+	recode gef_wirtsch`i' (1=5) (2=4) (4=2) (5=1) (99=.a)
+	lab var gef_wirtsch`i' "Wirtschaftliche Gefahr: Fuer mich persoenlich"
+	lab val gef_wirtsch`i' gef_lab
+}
+*tab1 gef_wirtsch1 gef_wirtsch2 gef_wirtsch3 gef_wirtsch4 gef_wirtsch5 gef_wirtsch6, m
+
+//Gefahr Variablen binär umcodiert als 1 = (sehr) groß und 0 ist mittelmäßig oder weniger oder fehlend
+lab def gef_lab_bin 1 "(sehr) große Gefahr" 0 "mittel oder kleine Gefahr, oder keine Angabe"
+forvalues i=1/6 {
+	capture drop gef_gesund_bin`i' gef_wirtsch_bin`i'
+	recode gef_gesund`i' (1/3=0) (4/5=1) (.=0) (.a=0), gen(gef_gesund_bin`i')
+	lab var gef_gesund_bin`i' "Große Gesundheitliche Gefahr: Fuer mich persoenlich"
+	lab val gef_gesund_bin`i' gef_lab_bin
+	
+	recode gef_wirtsch`i' (1/3=0) (4/5=1) (.=0) (.a=0), gen(gef_wirtsch_bin`i')
+	lab var gef_wirtsch_bin`i' "Große Wirtschaftliche Gefahr: Fuer mich persoenlich"
+	lab val gef_wirtsch_bin`i' gef_lab_bin
+}
+/*tab gef_wirtsch_bin1, m
+   Große Wirtschaftliche Gefahr: Fuer |
+                       mich persoenlich |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+keine Angabe, mittel oder kleine Gefahr |        389       80.87       80.87
+                    (sehr) große Gefahr |         92       19.13      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        481      100.00
+*/
+
+
+
+***	+++++		Bezahlte und unbezahlte Arbeit 		++++++
+
+* unbezahlte Arbeit kinder*  haus* (2020)
+//Zeit für Hausarbeit + Einkaufen in Stunden pro Tag
+gen haus2=W2_Q37A4/3600
+gen haus5=W5_Q46A4/3600 
+gen haus8=W8_Q37A4/3600
+gen haus11=W11_Q48A4/3600
+gen haus14=W14_Q39A4/3600  
+gen haus17=W17_Q39A4/3600
+//Zeit für Pflege / Kinderbetreuung in Stunden pro Tag
+gen kinder2=W2_Q37A5/3600
+gen kinder5=W5_Q46A5/3600
+gen kinder8=W8_Q37A5/3600 
+gen kinder11=W11_Q48A5/3600
+gen kinder14=W14_Q39A5/3600
+gen kinder17=W17_Q39A5/3600 
+
+*Werte>12 Stunden tgl. für Plausibilität auf 12 rekodiert:
+foreach i in 2 5 8 11 14 17 {
+	replace kinder`i'=12 if kinder`i'>12 & kinder`i'!=.
+	replace haus`i'=12 if haus`i'>12 & haus`i'!=.
+}
+
+*Median des Haushalts- und Kinderbetreuungszeit 2020 1. Lockdown (bis inkl. Welle 8, Rückblickend auf Ende des Lockdowns)
+gen haus_sum=0
+gen kinder_sum=0
+foreach i in 2 5 8 {
+	replace haus_sum=haus_sum + haus`i'
+	replace kinder_sum=kinder_sum + kinder`i'
+}
+gen haus_mean=haus_sum/3	//haus_mean n=185
+gen kinder_mean=kinder_sum/3 //kinder_mean n=185
+tab1 haus_mean kinder_mean 
+//50% cumulative  = median: haus = 1,83 Std / kinder = 5,08 Std*/
+//Über Median: haus > 1,84 Std / kinder > 5,09 Std
+
+*Zeit geteilt binär in "Über Median" und "Unter/am Median"
+label define zeit_bin 1 "Über Median" 0 "Unter/am Median oder fehlend"
+foreach i in 2 5 8 {
+	gen kinder_bin`i'= 0
+	gen haus_bin`i'= 0
+	//binäre Zeitvariable erhält Wert 1 wenn Zeit der Person über Median 
+	//für alle Befragten über Wellen 2,5,8
+	replace kinder_bin`i'=1 if (kinder`i' > 5.09 & kinder`i'!=.)
+	replace haus_bin`i'=1 if (haus`i' > 1.84 & haus`i'!=.)
+	lab var kinder_bin`i' "Kinderbetreuungszeit bezogen auf Median"
+	lab var haus_bin`i' "Haushaltszeit bezogen auf Median"
+	lab val kinder_bin`i' haus_bin`i' zeit_bin
+	*tab kinder`i' kinder_bin`i', m
+	*tab haus`i' haus_bin`i', m
+}
+/*Verteilung Haushaltszeit über Median & Geschlecht Wellen 2, 5
+tab haus_bin2 gndr, col
+tab haus_bin5 gndr, col
+
+Haushaltszeit bezogen |      Geschlecht
+          auf Median 5|    Männer     Frauen |     Total
+----------------------+----------------------+----------
+Unter/am Median oder  |       190        146 |       336 
+                      |     78.19      61.34 |     69.85 
+----------------------+----------------------+----------
+          Über Median |        53         92 |       145 
+                      |     21.81      38.66 |     30.15 
+----------------------+----------------------+----------
+                Total |       243        238 |       481 
+                      |    100.00     100.00 |    100.00 
+*/
+
+* Erwerbsarbeit (2020)
+//Erwerbstätigkeit zum Befragungszeitpunkt -> unselbstständig / selbstständig (1) / nicht erwerbstätig (2)
+gen erwerb2 = W2_Q10
+gen erwerb4 = W4_Q11
+gen erwerb5 = W5_Q11   
+gen erwerb8 = W8_Q11 
+gen erwerb11 = W11_Q11
+gen erwerb14 = W14_Q11
+gen erwerb17 = W17_Q11
+
+recode erwerb2 erwerb4 erwerb5 erwerb8 erwerb11 erwerb14 erwerb17 (1/3=1) (4/10=0) (99=.)
+label define erwerb_lab 1 "erwerbstätig" 0 "nicht erwerbstätig" 
+label values erwerb2 erwerb4 erwerb5 erwerb8 erwerb11 erwerb14 erwerb17 erwerb_lab
+/*Verteilung Erwerbstätigkeit zum Befragungszeitpunkt & Geschlecht Wellen 2, 5
+tab erwerb2 gndr, col
+tab erwerb5 gndr, col
+                    |      Geschlecht
+            erwerb2 |    Männer     Frauen |     Total
+--------------------+----------------------+----------
+ nicht erwerbstätig |        10         44 |        54 
+                    |      8.13      38.94 |     22.88 
+--------------------+----------------------+----------
+       erwerbstätig |       113         69 |       182 
+                    |     91.87      61.06 |     77.12 
+--------------------+----------------------+----------
+              Total |       123        113 |       236 
+                    |    100.00     100.00 |    100.00 
+*/
+
+
+//Erwerbsstunden zum Befragungszeitpunkt
+//... pro Woche
+gen erwerb2_woche = W2_Q52A1
+gen erwerb4_woche = W4_Q61A1
+gen erwerb5_woche = W5_Q67A1 
+gen erwerb8_woche = W8_Q55A1
+gen erwerb11_woche = W11_Q69A1
+gen erwerb14_woche = W14_Q70A1
+gen erwerb17_woche = W17_Q60A1
+
+foreach i in 2 5 8 11 14 17 {
+	*wenn nicht erwerbstätig -> Erwerbsstunden=0 	
+	replace erwerb`i'_woche=0 if erwerb`i'==0
+}
+
+//...pro Tag (Annahme 5 Arbeitstage)
+foreach i in 2 5 8 11 14 17 {
+	gen erwerb`i'_tag = erwerb`i'_woche/5
+}
+
+//Erwerbsstunden -> 0/TZ/VZ pro Woche 
+label define erwerbstd_lab 1 "TZ erwerbstätig" 2 "VZ erwerbstätig"  0 "nicht erwerbstätig" 
+foreach i in 2 5 8 11 14 17 {
+	gen erwerb`i'_tzvz = erwerb`i'_woche
+	//Vollzeit ab 35 Stunden/Woche
+	recode erwerb`i'_tzvz (0/0.99=0) (1/35.99=1) (36/150=2) 
+	//Frage zu bezahlten Arbeitsstunden wurde nur Personen mit Erwerbstätigkeit gestellt. erwerb=0 (nicht erwerbstätig) mit 0 Stunden rekodiert.
+	replace erwerb`i'_tzvz=0 if erwerb`i'==0
+	label values erwerb`i'_tzvz erwerbsstd_lab
+}
+
+*0/TZ/VZ in dummy Variablen:
+label define erwerb_ne_lab 1 "nicht erwerbstätig"  0 "TZ oder VZ erwerbstätig" 
+label define erwerb_tz_lab 1 "TZ erwerbstätig"  0 "nicht TZ erwerbstätig" 
+label define erwerb_vz_lab 1 "VZ erwerbstätig"  0 "nicht VZ erwerbstätig" 
+foreach i in 2 5 8 11 14 17 {
+	*Dummy 1 = Teilzeit
+	recode erwerb`i'_tzvz (1=1) (0 2=0), gen(erwerb_tz`i')
+	label variable erwerb_tz`i' "Erwerbstätig in Teilzeit"
+	label values erwerb_tz`i' erwerb_tz_lab
+	*Dummy 1 = Vollzeit
+	recode erwerb`i'_tzvz (0 1=0) (2=1), gen(erwerb_vz`i')
+	label variable erwerb_vz`i' "Erwerbstätig in Vollzeit"
+	label values erwerb_vz`i' erwerb_vz_lab
+	*Dummy 1 = Nicht Erwerbstätig
+	recode erwerb`i'_tzvz (0=1) (1 2=0), gen(erwerb_ne`i')
+	label variable erwerb_ne`i' "Nicht Erwerbstätig"
+	label values erwerb_ne`i' erwerb_ne_lab
+}
+
+* Vergleich mit Erwerbstätigkeit Februar 2020 
+recode SD_EMPLSTATUS_FEB2020 (1/3=1) (4/10=0) (99=.), gen(erwerbtaetig_feb)
+label variable erwerbtaetig_feb "Erwerbstätigkeit Februar 2020"
+label values erwerbtaetig_feb erwerb_lab
+/*tab erwerbtaetig_feb, m
+
+  Erwerbstätigkeit |
+      Februar 2020 |      Freq.     Percent        Cum.
+-------------------+-----------------------------------
+nicht erwerbstätig |         89       18.50       18.50
+      erwerbstätig |        377       78.38       96.88
+                 . |         15        3.12      100.00
+-------------------+-----------------------------------
+             Total |        481      100.00
+*/
+
+//Arbeitsstunden (Einheit Stunden/Woche) Februar 2020
+gen erwerbstd_feb = SD_WORKHOURS_FEB2020
+replace erwerbstd_feb = 0 if erwerbtaetig_feb==0 //nicht erwerbstätig 
+
+//Veränderung Erwerbsstunden gegenüber Feb 2020
+label define diff_std 1 "Reduktion" 0 "Gleich / Anstieg"
+foreach i in 2 4 5 8 11 14 17 {
+	capture drop diff_stunden`i' //drop if it exists
+	gen diff_stunden`i'=erwerb`i'_woche - erwerbstd_feb
+	recode diff_stunden`i' (-80/-8=1) (-8/80=0)  //+/-8 Std ~ gleich
+	//zu geringe Fallzahlen für Anstieg separat
+	lab var diff_stunden`i' "Veränderung Erwerbsstd zu Feb 2020"
+	lab val diff_stunden`i' diff_std
+}
+/*tab diff_stunden2
+     Veränderung |
+   Erwerbsstd zu |
+        Feb 2020 |      Freq.     Percent        Cum.
+-----------------+-----------------------------------
+Gleich / Anstieg |        148       63.52       63.52
+       Reduktion |         85       36.48      100.00
+-----------------+-----------------------------------
+           Total |        233      100.00
+*/
+
+//Veränderung Erwerbsstunden gegenüber Feb 2020 in Stunden (metrisch)
+*Keine Erwerbstätigkeit = keine Stundenveränderung
+foreach i in 2 4 5 8 11 14 17 {
+	capture drop diff_stunden_m`i'
+	gen diff_stunden_m`i'=erwerb`i'_woche-erwerbstd_feb 
+	replace diff_stunden_m`i'=0 if erwerb`i'==0
+}
+
+* Kinderbetreuung stellt Problem dar (2020)
+/*1 = Trifft voll und ganz zu 2 = Trifft eher zu 3 = Teils-teils
+4 = Trifft eher nicht zu 5 = Trifft gar nicht zu (Wertereihe umgedreht)*/
+gen kb_problem1 = W1_Q24A1
+gen kb_problem2 = W2_Q28A1
+gen kb_problem3 = W3_Q27A1
+gen kb_problem4 = W4_Q35A1
+gen kb_problem5 = W5_Q34A1
+gen kb_problem6 = W6_Q34A1
+
+forvalues i=1/6 {
+	recode kb_problem`i' (1=5) (2=4) (4=2) (5=1) (88 99=.a) //hohe Werte=starkes Problem
+	recode kb_problem`i' (1/3=0) (4/5=1), gen(kb_großesprob`i') //1 = "Trifft eher zu" und "Trifft voll und ganz zu" zusammengefasst
+	}
+/*tab kb_problem1, m
+kb_problem1 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |        108       22.45       22.45
+          2 |         44        9.15       31.60
+          3 |         35        7.28       38.88
+          4 |         32        6.65       45.53
+          5 |         13        2.70       48.23
+          . |        248       51.56       99.79
+         .a |          1        0.21      100.00
+------------+-----------------------------------
+      Total |        481      100.00
+*/
+	
+	
+	
+	
+* ----------------------------------------------------------------------- *
+**# Auswertungen    		  		    		          *
+* ----------------------------------------------------------------------- *	
+
+*Kontrolle missing values in Analysestichprobe
+tab gndr, m //missing=divers+keine Antwort 
+tab kindu15, m //0% - per Definition in Analysestichprobe
+tab alter, m //0%
+tab bildung, m //0,21% = 1 Person
+tab migra, m  //0,21% = 1 Person
+
+*(erstes Vorkommen der Variable)
+tab haus2 W2_PANELIST, m //0%
+tab kinder2 W2_PANELIST, m //0% 
+tab diff_stunden2 W2_PANELIST, m col //4,12% = 10 Personen
+
+tab hheink1 W1_PANELIST, m col //19,74% = 46 Personen in Kategorie "Keine Angabe"
+tab gef_gesund1 W1_PANELIST, m col //0,43% = 1 Person
+tab gef_wirtsch1 W1_PANELIST, m col //0,86% = 2 Personen
+
+tab kb_problem1 W1_PANELIST, m col //0,43% = 1 Person
+
+
+///////////////// 
+//Affects Zeitverlauf
+**Affekte für Alter 25-59 J, mit Kind in Partnerschaft
+frame dir
+frame copy default df_time_series
+frame change df_time_series
+
+keep RESPID affect* gndr alter partner kindu15 weight*
+reshape long affect weight, i(RESPID) j(wave)
+keep if partner==1 & kindu15==1 & alter>=25 & alter<=59
+
+*Zeilenvariable-Vektor als Matrix erstellen (in Stata keine Zeilenvariable Vektoren verfügbar), mit 32 Einträgen für 32 Wellen. Einträge zu Beginn = 0, dann schrittweise jeweils den Mittelwert eintragen
+*J(rows, columns, value):  J(1, 32, 0) 1 = 1 Zeile → Zeilenvektor; 32 = 32 Spalten = 32 Einträge; 0 = alle Werte sind 0
+matrix mean_affect = J(1, 32, 0)
+matrix list mean_affect
+forvalues i=1/32 {
+	quietly summarize affect [aweight=weight] if wave==`i' 
+	matrix mean_affect[1,`i'] = r(mean)
+	matrix list mean_affect
+	}
+
+*Für mean affect Männer und Frauen getrennt und die Differenz zwischen beiden:
+matrix mean_affect_m = J(1, 32, 0)
+matrix mean_affect_w = J(1, 32, 0)
+matrix mean_affect_diff = J(1, 32, 0)
+forvalues i=1/32 {
+	quietly summarize affect [aweight=weight] if (wave==`i' & gndr==1) //Men
+	matrix mean_affect_m[1,`i'] = r(mean)
+	matrix list mean_affect_m
+	
+	quietly summarize affect [aweight=weight] if (wave==`i' & gndr==2) //Women
+	matrix mean_affect_w[1,`i'] = r(mean)
+	matrix list mean_affect_w
+	
+	*difference in means of men and women
+	matrix mean_affect_diff[1,`i'] = mean_affect_m[1,`i'] - mean_affect_w[1,`i']
+	matrix list mean_affect_diff	
+	}
+	
+*Mean Affect Matrizen in Variable umwandeln (_v)
+*drop mean_affect_v mean_affect_mv mean_affect_wv mean_affect_diffv
+gen mean_affect_v = .
+gen mean_affect_mv = .
+gen mean_affect_wv = .
+gen mean_affect_diffv = .
+forvalues i = 1/32 {
+    display `i' 
+    replace mean_affect_v = mean_affect[1, `i'] in `i'
+    replace mean_affect_mv = mean_affect_m[1, `i'] in `i'
+    replace mean_affect_wv = mean_affect_w[1, `i'] in `i'
+    replace mean_affect_diffv = mean_affect_diff[1, `i'] in `i'
+}
+codebook mean_affect_v mean_affect_mv mean_affect_wv mean_affect_diffv
+*tab1 mean_affect_v mean_affect_mv mean_affect_wv mean_affect_diffv
+*twoway line mean_affect_v mean_affect_mv mean_affect_wv mean_affect_diffv wave
+
+*Benennungen klarer für Grafik
+gen mean_affect = mean_affect_v
+gen mean_affect_fathers = mean_affect_mv 
+gen mean_affect_mothers = mean_affect_wv 
+gen mean_affect_diff_maleminusfemale = mean_affect_diffv
+twoway line mean_affect mean_affect_fathers mean_affect_mothers mean_affect_diff_maleminusfemale wave
+
+frame change default
+frame drop df_time_series
+frame dir
+//
+/////////////////
+
+
+///////////////// 
+//Tab. Durchschnitte (nicht im Text dargestellt) 
+//
+frame dir
+frame copy default tab_ds 
+frame change tab_ds
+
+keep RESPID affect* gndr partner alter kindu15 kb_großesprob* kinder* haus* weight*
+reshape long affect kinder haus kb_großesprob weight, i(RESPID) j(wave)
+describe //obs: 111 104   
+codebook RESPID //n=3472
+keep if wave==2 | wave==5 | wave==8 
+//Wellen 2, 5 und 8 (Wellen zum 1. Lockdown (und rückblickend auf Ende des Lockdowns) + mit Informationen zur unbezahlten Arbeit)
+keep if partner==1 & kindu15==1 & alter>=25 & alter<=59
+describe //obs: 1443 
+codebook RESPID //n=481
+drop if affect==. 
+describe //obs = 728
+codebook RESPID //n=309
+
+***Zeit bezogen auf Durchschnittswerte
+//Zeit in Terzile geteilt
+xtile kinder_terzile=kinder, nq(3) 
+xtile haus_terzile=haus, nq(3) 
+
+//Terzilgrenzen
+tab kinder kinder_terzile
+tab haus haus_terzile
+
+//Verteilungen
+tab kinder_terzile gndr, col
+tab haus_terzile gndr, col
+tab kb_großesprob gndr, col
+
+**affect über Zeit & Probleme mit Kinderbetreuung
+*Daten speichern
+preserve
+**Männer--------------------------------------
+*Mittelwert nach Terzilen der Haushaltszeit
+collapse (mean) affect [aw=weight] if gndr==1, by(haus_terzile)
+list
+restore
+*Mittelwert nach Terzilen der Kinderbetreuungszeit
+preserve
+collapse (mean) affect [aw=weight] if gndr==1, by(kinder_terzile)
+list
+restore
+*Mittelwert nach Terzilen der Kinderbetreuungs-Probleme
+preserve
+collapse (mean) affect [aw=weight] if gndr==1, by(kb_großesprob)
+list
+restore
+
+**Frauen--------------------------------------
+*Mittelwert nach Terzilen der Haushaltszeit
+preserve
+collapse (mean) affect [aw=weight] if gndr==2, by(haus_terzile)
+list
+restore
+*Mittelwert nach Terzilen der Kinderbetreuungszeit
+preserve
+collapse (mean) affect [aw=weight] if gndr==2, by(kinder_terzile)
+list
+restore
+*Mittelwert nach Terzilen der Kinderbetreuungs-Probleme
+preserve
+collapse (mean) affect [aw=weight] if gndr==2, by(kb_großesprob)
+list
+restore
+ 
+**Gesamt-----------------------------------
+*Mittelwert nach Terzilen der Haushaltszeit
+preserve
+collapse (mean) affect [aw=weight], by(haus_terzile)
+list
+restore
+*Mittelwert nach Terzilen der Kinderbetreuungszeit
+preserve
+collapse (mean) affect [aw=weight], by(kinder_terzile)
+list
+restore
+*Mittelwert nach Terzilen der Kinderbetreuungs-Probleme
+preserve
+collapse (mean) affect [aw=weight], by(kb_großesprob)
+list
+restore
+
+frame change default 
+frame drop tab_ds 
+frame dir
+//
+/////////////////
+
+
+///////////////// 
+//Decomposition Analysis
+//
+frame dir
+frame copy default df_kob
+frame change df_kob
+
+keep RESPID affect* gndr alter kindu15 partner migra hoeherebildung ///
+hheink_high_low* hheink_low* hheink_high* hheink_ka* ///  //Haushaltseinkommen
+gef_gesund_bin* gef_wirtsch_bin* kinder_bin* haus_bin* ///
+erwerb* erwerb_ne* erwerb_tz* erwerb_vz* ///  //Erwerbtätigkeit
+diff_stunden_m* diff_stunden* /// //Verändeurng Erwerbsstunden
+kb_großesprob* weight*
+
+reshape long affect hheink_high_low hheink_low hheink_high hheink_ka ///
+gef_gesund_bin gef_wirtsch_bin kinder_bin haus_bin /// 
+erwerb erwerb_ne erwerb_tz erwerb_vz diff_stunden_m diff_stunden ///
+kb_großesprob weight, i(RESPID) j(wave)
+ 
+keep if wave <= 6 //Wellen des 1. Lockdowns
+keep if partner==1 & kindu15==1 & alter>=25 & alter<=59
+describe // 2886 obs  
+codebook RESPID //n= 481
+
+*Full Model / weight gepoolt aus beiden Gruppen (siehe zu weights Jann 2008)
+*Format: oaxaca depvar indepvars
+oaxaca affect migra hoeherebildung hheink_high_low gef_gesund_bin gef_wirtsch_bin kinder_bin haus_bin erwerb diff_stunden kb_großesprob, by(gndr) pooled xb noisily
+
+*Alternative Full Models als robustness checks:
+
+*1: erwerb: "Keine Erwerbstätigkeit" als Referenzkategorie, erwerb geteilt in VZ und TZ
+oaxaca affect migra hoeherebildung hheink_high_low gef_gesund_bin gef_wirtsch_bin kinder_bin haus_bin erwerb_tz erwerb_vz diff_stunden kb_großesprob, by(gndr) pooled xb noisily
+*1b "VZ Erwerbstätigkeit" als Referenzkategorie
+*robustness check: Erklärungsanteil durch Trennung in VZ und TZ reduziert, sonst ähnliche Ergebnisse
+oaxaca affect migra hoeherebildung hheink_high_low gef_gesund_bin gef_wirtsch_bin kinder_bin haus_bin erwerb_ne erwerb_tz diff_stunden kb_großesprob, by(gndr) pooled xb noisily
+
+*2: diff_std Differenz der Erwerbsstunden gegenüber Februar 2020 metrisch in Stunden 
+*robustness check: explained Anteil minimal erhöht (+0,0055), aber keine erhöhte Erklärungskraft in den Koeffizienten
+oaxaca affect migra hoeherebildung hheink_high_low gef_gesund_bin gef_wirtsch_bin kinder_bin haus_bin erwerb diff_stunden_m kb_großesprob, by(gndr) pooled xb noisily
+
+*3: Haushaltseinkommen in drei Dummykategorien, inkl. "keine Angabe" - "keine Angabe" als Referenzkategorie (auch "niedriges HHEK" als Referenz getestet)
+*robustness check: Erklärter Anteil reduziert, sonst ähnliche Ergebnisse
+oaxaca affect migra hoeherebildung hheink_low hheink_high gef_gesund_bin gef_wirtsch_bin kinder_bin haus_bin erwerb diff_stunden kb_großesprob, by(gndr) pooled xb noisily
+
+*Reduziertes Model: (In Darstellung genutzt)
+*ohne Migration (erklärt Differenz nicht); Bildung entfernt, Haushaltseinkommen behalten (sozioökonomische Eigenschaft); 
+*gesundheitliche Gefahr behalten (Einkommen statt wirtsch. Gefahr); diff_std entfernt
+oaxaca affect hheink_high_low gef_gesund_bin kinder_bin haus_bin erwerb kb_großesprob, by(gndr) pooled xb noisily
+
+*gndr=1/2 = Männer/Frauen
+
+frame change default //Wechsel zurück zu Grunddatensatz
+frame drop df_kob //Neuen Datensatz verwerfen
+frame dir
+//
+/////////////////
