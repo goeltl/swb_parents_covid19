@@ -12,7 +12,8 @@ The paper is applying the stress process theory of Pearlin et al. on the stresso
 
 ## Code file, written in STATA18
 
-Code file available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/code_STATA_paper-iFamZ_2025_Goeltl.txt)
+Code file available [here](https://github.com/goeltl/swb_parents_covid19/blob/main/code_STATA_paper-iFamZ_2025_Goeltl.txt).
+Code comments are in German, if you have any questions feel free to contact me.
 
 ## Raw time series data of affects
 ### Affects over survey time 2020-2022
